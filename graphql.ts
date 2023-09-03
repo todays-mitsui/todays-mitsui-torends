@@ -9,26 +9,43 @@ import { fetchRecords } from "./innerscan/service.ts";
 
 export const typeDefs = gql`
 type Query {
-  hello: String
+  "体組成情報の推移"
   getTrends(numDays: Int): Trend!
+  "身長"
+  height: Float!
+  "性別"
+  sex: Sex!
 }
 
 type Trend {
+  "Unix タイムスタンプ"
   timestamps: [Int!]!
+  "体重 (kg)"
   weight: [Float!]!
+  "体脂肪率 (%)"
   fat: [Float!]!
+  "筋肉量 (kg)"
   muscleMass: [Float!]!
+  "筋肉スコア"
   muscleScore: [Int!]!
+  "内臓脂肪レベル"
   visceralFatLevel: [Float!]!
+  "基礎代謝量 (kcal)"
   basalMetabolicRate: [Int!]!
+  "体年齢 (歳)"
   bodyAge: [Int!]!
+  "推定骨量 (kg)"
   boneMass: [Float!]!
+}
+
+enum Sex {
+  Male
+  Female
 }
 `;
 
 export const resolvers = {
   Query: {
-    hello: () => "Hello,world!",
     getTrends: async (
       _parent: any,
       { numDays }: any,
@@ -73,6 +90,10 @@ export const resolvers = {
 
       return trend;
     },
+
+    height: () => 171.5,
+
+    sex: () => "Male",
   },
   // Mutation: {},
 };

@@ -1,14 +1,5 @@
-# REST API
+# todays_mitsui Trend
 
-A template of REST API app using Oak framework
+todays_mitsui の体組成情報
 
-
-Start the server with the command:
-
-```
-deno run --allow-net main.ts
-```
-
-This starts the server at http://localhost:8000/
-
-Try go to http://localhost:8000/api/Brachiosaurus or http://localhost:8000/api/
+see: https://todays-mitsui-torends.deno.dev/graphql

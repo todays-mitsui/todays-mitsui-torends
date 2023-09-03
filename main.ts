@@ -7,8 +7,8 @@ router
   .get("/", (context) => {
     context.response.headers.set("Content-Type", "text/html; charset=utf-8");
     context.response.body = `see: <a
-        href="https://todays-mitsui-torends.deno.dev/graphql"
-      >https://todays-mitsui-torends.deno.dev/graphql</a>`;
+        href="https://todays-mitsui-trend.deno.dev/graphql"
+      >https://todays-mitsui-trend.deno.dev/graphql</a>`;
   });
 
 const app = new Application();

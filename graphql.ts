@@ -10,7 +10,7 @@ import { fetchRecords } from "./innerscan/service.ts";
 export const typeDefs = gql`
 type Query {
   "体組成情報の推移"
-  getTrends(numDays: Int): Trend!
+  trend(numDays: Int): Trend!
   "身長"
   height: Float!
   "性別"
@@ -20,6 +20,11 @@ type Query {
 type Trend {
   "Unix タイムスタンプ"
   timestamps: [Int!]!
+  """
+  計測日時
+  ISO 8601 形式
+  """
+  datetime: [String!]!
   "体重 (kg)"
   weight: [Float!]!
   "体脂肪率 (%)"
@@ -46,7 +51,7 @@ enum Sex {
 
 export const resolvers = {
   Query: {
-    getTrends: async (
+    trend: async (
       _parent: any,
       { numDays }: any,
       _context: any,
@@ -67,6 +72,7 @@ export const resolvers = {
 
       const trend = {
         timestamps: [] as number[],
+        datetime: [] as string[],
         weight: [] as number[],
         fat: [] as number[],
         muscleMass: [] as number[],
@@ -78,6 +84,7 @@ export const resolvers = {
       };
       for (const record of records) {
         trend.timestamps.push(record.recordDate.getTime() / 1000);
+        trend.datetime.push(record.recordDate.toISOString());
         trend.weight.push(record.weight.value);
         trend.fat.push(record.fat.value);
         trend.muscleMass.push(record.muscleMass.value);

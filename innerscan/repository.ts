@@ -35,9 +35,9 @@ export interface Record {
   };
 }
 
-export async function setRecords(records: Record[]) {
-  const kv = await Deno.openKv();
+const kv = await Deno.openKv();
 
+export async function setRecords(records: Record[]) {
   for (const record of records) {
     const dateStr = record.recordDate.toISOString();
     await kv.set(["innerscan", dateStr], record);
@@ -50,13 +50,11 @@ export async function setRecords(records: Record[]) {
 }
 
 export async function setRecord(record: Record) {
-  const kv = await Deno.openKv();
   const dateStr = record.recordDate.toISOString();
   await kv.set(["innerscan", dateStr], record);
 }
 
 export async function getRecords(): Promise<Record[]> {
-  const kv = await Deno.openKv();
   const iter = kv.list({ prefix: ["innerscan"] });
   const records = [];
   for await (const entry of iter) {
@@ -66,12 +64,10 @@ export async function getRecords(): Promise<Record[]> {
 }
 
 export async function setLastFetch(date: Date) {
-  const kv = await Deno.openKv();
   await kv.set(["lastFetch"], date);
 }
 
 export async function getLastFetch(): Promise<Date> {
-  const kv = await Deno.openKv();
   const entry = await kv.get(["lastFetch"]);
 
   if (entry.value != null) {

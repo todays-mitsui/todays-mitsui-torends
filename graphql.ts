@@ -62,7 +62,7 @@ export const resolvers = {
       }
 
       const kv = await Deno.openKv();
-      await kv.delete(["innerscan", "lastFetch"]);
+      await kv.delete(["lastFetch"]);
 
       const lastFetch = await getLastFetch();
       const now = new Date();

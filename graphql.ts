@@ -61,6 +61,9 @@ export const resolvers = {
         throw new GQLError("numDays は 0 より大きい値を指定してください");
       }
 
+      const kv = await Deno.openKv();
+      kv.delete(["innerscan", "lastFetch"]);
+
       const lastFetch = await getLastFetch();
       const now = new Date();
 

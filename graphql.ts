@@ -61,23 +61,6 @@ export const resolvers = {
         throw new GQLError("numDays は 0 より大きい値を指定してください");
       }
 
-      const kv = await Deno.openKv();
-      await kv.delete(["lastFetch"]);
-      await Promise.all([
-        kv.delete(["innerscan", "2023-09-02T11:40:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-02T20:40:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-02T21:27:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-03T01:47:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-03T06:27:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-03T10:47:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-03T22:29:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-04T07:29:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-04T08:27:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-04T17:27:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-04T23:15:00.000Z"]),
-        kv.delete(["innerscan", "2023-09-05T08:15:00.000Z"]),
-      ]);
-
       const lastFetch = await getLastFetch();
       const now = new Date();
 

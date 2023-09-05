@@ -67,6 +67,7 @@ export function parse(html: string, fetchDate: Date): ParseResult[] {
       `${date} ${hour}:${minute}`,
       "yyyy年MM月dd日 HH:mm",
     );
+    recordDate.setHours(recordDate.getHours() - 9); // JST → UTC
 
     const sizeStr = getValue(doc, `innerscanBean[${i}].size`);
     if (sizeStr == null) throw new Error("parse failed: no size.");

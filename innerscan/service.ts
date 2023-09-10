@@ -11,7 +11,11 @@ export async function fetchRecords(sinceUtc: Date, untilUtc: Date) {
 
   const date = new Date(sinceUtc.getTime());
   while (date <= until) {
+    console.log(`fetch_records: ${date.toISOString()}`);
+
     const results = await fetch_records(date);
+
+    console.log(`fetched ${results.length} records`);
 
     const records: Record[] = results.map((result) => ({
       recordDate: result.recordDate,
@@ -49,6 +53,8 @@ export async function fetchRecords(sinceUtc: Date, untilUtc: Date) {
         unit: result.data["推定骨量"].unit,
       },
     }));
+
+    console.log(`set ${records.length} records`);
 
     await setRecords(records);
     date.setDate(date.getDate() + 1);
